@@ -93,11 +93,11 @@
                                     <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Iniciar Sesion</h1>
                                     <p class="text-base font-bold leading-normal text-white-dark">Entra tu nombre de usuario y tu contraseña para iniciar sesion</p>
                                 </div>
-                                <form class="space-y-5 dark:text-white" @submit.prevent="window.location='index.html'">
+                                <form class="space-y-5 dark:text-white" method="POST" action="../controllers/AuthController.php">
                                     <div>
-                                        <label for="Name">Correo Electronico</label>
+                                        <label for="email">Correo Electrónico</label>
                                         <div class="relative text-white-dark">
-                                            <input id="Name" type="text" placeholder="correo.ejemplo@upr.edu" class="form-input ps-10 placeholder:text-white-dark" />
+                                            <input id="email" name="email" type="text" placeholder="correo.ejemplo@upr.edu" class="form-input ps-10 placeholder:text-white-dark" />
                                             <span class="absolute start-4 top-1/2 -translate-y-1/2">
                                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                                                     <circle cx="9" cy="4.5" r="3" fill="#888EA8" />
@@ -114,7 +114,8 @@
                                         <label for="Password">Contraseña</label>
                                         <div class="relative text-white-dark">
                                             <input
-                                                id="Password"
+                                                id="password"
+                                                name="password"
                                                 type="password"
                                                 placeholder="Contraseña"
                                                 class="form-input ps-10 placeholder:text-white-dark"
