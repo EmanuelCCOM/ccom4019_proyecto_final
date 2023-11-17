@@ -86,19 +86,20 @@ CREATE TABLE `section` (
 CREATE TABLE `student` (
   `student_id` char(9) NOT NULL,
   `password` varchar(20) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
+  `email` varchar(40) NOT NULL,
   `year_of_study` tinyint(1) NOT NULL DEFAULT 1,
   `name` varchar(20) NOT NULL,
-  `lastName` varchar(20) NOT NULL
+  `lastName` varchar(20) NOT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `student`
 --
 
-INSERT INTO `student` (`student_id`, `password`, `user_name`, `year_of_study`, `name`, `lastName`) VALUES
-('840199857', 'lkj', 'Emanuel8', 4, 'Emanuel', 'Martinez'),
-('840206745', 'lkj', 'Daisy3', 1, 'Daisy', 'Escalante');
+INSERT INTO `student` (`student_id`, `password`, `email`, `year_of_study`, `name`, `lastName`) VALUES
+('840199857', 'lkj', 'Emanuel8@upr.edu', 4, 'Emanuel', 'Martinez'),
+('840206745', 'lkj', 'Daisy3@upr.edu', 1, 'Daisy', 'Escalante');
 
 --
 -- Índices para tablas volcadas
