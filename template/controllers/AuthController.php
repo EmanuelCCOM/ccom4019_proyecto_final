@@ -35,7 +35,7 @@ class AuthController
             $_SESSION['role'] = "admin";
 
             // Redirige al usuario a la página "expedientes.php"
-            header("Location: ../admin/views/");
+            header("Location: ../admin/controllers/recordsController.php");
             exit(); // Termina el script para evitar que se siga ejecutando
         } else
         {

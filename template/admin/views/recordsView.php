@@ -1,7 +1,3 @@
-<?php
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -61,7 +57,6 @@
     </div>
 
     <div class="main-container min-h-screen text-black dark:text-white-dark" :class="[$store.app.navbar]">
-        <!-- start sidebar section -->
         <!-- start sidebar section -->
         <div :class="{'dark text-white-dark' : $store.app.semidark}">
             <nav x-data="sidebar" class="sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300">
@@ -559,119 +554,32 @@
                         <div class="panel mt-5 overflow-hidden border-0 p-0">
                             <template x-if="displayType === 'list'">
                                 <div class="table-responsive">
-                                    <table class="table-striped table-hover">
-                                        <thead>
+                                <table class="table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Numero de Estudiante</th>
+                                            <th>Nombre</th>
+                                            <th>Año de estudio</th>
+                                            <th class="text-center">Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($students as $student): ?>
                                             <tr>
-                                                <th>Estudiante</th>
-                                                <th>Número de estudiante</th>
-                                                <th>Consejería</th>
-                                                <th>Estatus</th>
-                                                <th class="!text-center">Expediente</th>
+                                                <td><?php echo $student['student_id']; ?></td>
+                                                <td><?php echo $student['name'] . ' ' . $student['lastName']; ?></td>
+                                                <td><?php echo $student['year_of_study']; ?></td>
+                                                <td>
+                                                    <div class="flex items-center gap-4">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.location.href='s_expediente.php'">
+                                                            Editar
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <template x-for="contact in filterdContactsList" :key="contact.id">
-                                                <tr>
-                                                    <td>
-                                                        <div class="flex w-max items-center">
-                                                            <!-- <div class="flex-none mr-3">
-                                                    <div class="p-1 bg-white-dark/30 rounded-full"><img class="h-8 w-8 rounded-full object-cover" src="assets/images/user-profile.jpeg" /></div>
-                                                </div> -->
-                                                            <div x-show="contact.path" class="w-max">
-                                                                <img
-                                                                    :src="`assets/images/${contact.path}`"
-                                                                    class="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2"
-                                                                    alt="avatar"
-                                                                />
-                                                            </div>
-                                                            <div
-                                                                x-show="!contact.path && contact.nombre"
-                                                                class="grid h-8 w-8 place-content-center rounded-full bg-primary text-sm font-semibold text-white ltr:mr-2 rtl:ml-2"
-                                                                x-text="contact.nombre.charAt(0) + '' + contact.nombre.charAt(contact.nombre.indexOf(' ') + 1)"
-                                                            ></div>
-                                                            <div
-                                                                x-show="!contact.path && !contact.nombre"
-                                                                class="rounded-full border border-gray-300 p-2 ltr:mr-2 rtl:ml-2 dark:border-gray-800"
-                                                            >
-                                                                <svg
-                                                                    width="24"
-                                                                    height="24"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-4.5 w-4.5"
-                                                                >
-                                                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle>
-                                                                    <ellipse
-                                                                        opacity="0.5"
-                                                                        cx="12"
-                                                                        cy="17"
-                                                                        rx="7"
-                                                                        ry="4"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="1.5"
-                                                                    ></ellipse>
-                                                                </svg>
-                                                            </div>
-                                                            <div x-text="contact.nombre"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td x-text="contact.numero"></td>
-                                                    <td x-text="contact.consejeria" class="whitespace-nowrap"></td>
-                                                    <td class="whitespace-nowrap">
-                                                        <template x-if="contact.priority">
-                                                                <div x-data="dropdown" @click.outside="open = false" class="dropdown">
-                                                                    <button
-                                                                        type="button"
-                                                                        class="badge rounded-full capitalize hover:top-0 hover:text-white"
-                                                                        x-text="contact.priority"
-                                                                        :class="{
-                                                                'badge-outline-primary hover:bg-primary': contact.priority === 'activo',
-                                                                'badge-outline-warning hover:bg-warning': contact.priority === 'inactivo',
-                                                                'text-white bg-primary': contact.priority === 'activo' && open,
-                                                                'text-white bg-warning': contact.priority === 'inactivo' && open,
-                                                                }"
-                                                                        @click="toggle"
-                                                                    ></button>
-                                                                    <ul
-                                                                        x-cloak
-                                                                    x-show="open"
-                                                                    x-transition
-                                                                    x-transition.duration.300ms
-                                                                    class="text-medium text-sm ltr:right-0 rtl:left-0"
-                                                                >
-                                                                    
-                                                                    <li>
-                                                                        <button
-                                                                            class="w-full text-primary ltr:text-left rtl:text-right"
-                                                                            @click="toggle,setPriority(contact, 'activo')"
-                                                                        >
-                                                                            Activo
-                                                                        </button>
-                                                                    </li>
-                                                                    <li>
-                                                                        <button
-                                                                            class="w-full text-warning ltr:text-left rtl:text-right"
-                                                                            @click="toggle,setPriority(contact, 'inactivo')"
-                                                                        >
-                                                                            Inactivo
-                                                                        </button>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </template>
-                                                    </td>
-                                                    <td>
-                                                        <div class="flex items-center justify-center gap-4">
-                                                            <button type="button" class="btn btn-sm btn-outline-primary" onclick = "window.location.href='s_expediente.php'">
-                                                                Editar
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </template>
-                                        </tbody>
-                                    </table>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                                 </div>
                             </template>
                         </div>
