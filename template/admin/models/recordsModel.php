@@ -1,17 +1,26 @@
 <?php
 class StudentsModel {
-    public static function getStudents($conn) {
-        // Consulta SQL para obtener solo los atributos necesarios de todos los estudiantes
-        $sql = "SELECT student_id, name, lastName, year_of_study FROM student";
+    public static function getStudentsByPage($conn, $page, $perPage) {
+        $offset = ($page - 1) * $perPage;
+        $sql = "SELECT student_id, name, lastName, year_of_study FROM student LIMIT $perPage OFFSET $offset";
         $result = $conn->query($sql);
 
-        // Verificar si la consulta fue exitosa
         if ($result) {
             $students = $result->fetch_all(MYSQLI_ASSOC);
-
             return $students;
         } else {
-            // Manejar el error de la consulta (puedes personalizar esto según tus necesidades)
+            die("Error en la consulta: " . $conn->error);
+        }
+    }
+
+    public static function getTotalStudents($conn) {
+        $sql = "SELECT COUNT(*) as total FROM student";
+        $result = $conn->query($sql);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } else {
             die("Error en la consulta: " . $conn->error);
         }
     }

@@ -583,8 +583,23 @@
                                 </div>
                             </template>
                         </div>
-                <!-- end main content section -->
+                        <!-- paginacion -->
+                        <?php
+                            $totalPages = ceil($totalStudents / $perPage); // Calcular el total de páginas
+                            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
 
+                            // Mostrar los botones de paginación
+                            echo '<ul class="inline-flex items-center space-x-1 rtl:space-x-reverse m-auto">';
+                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . max($currentPage - 1, 1) . '\'">Prev</button></li>';
+
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . $i . '\'">' . $i . '</button></li>';
+                            }
+
+                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . min($currentPage + 1, $totalPages) . '\'">Next</button></li>';
+                            echo '</ul>';
+                        ?>
+                <!-- end main content section -->
             </div>
 
             <!-- start footer section -->
