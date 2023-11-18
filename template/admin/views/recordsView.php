@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Consejeria UPRA</title>
+    <title>PRE-MATRICULA </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,7 +64,7 @@
                     <div class="flex items-center justify-between px-4 py-3">
                         <a href="index.html" class="main-logo flex shrink-0 items-center">
                             <img class="ml-[5px] w-8 flex-none" src="assets/images/university.png" alt="image" />
-                            <span style='font-size: 20px' class="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">CONSEJERIA UPRA</span>
+                            <span style='font-size: 20px' class="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">PRE-MATRICULA</span>
                         </a>
                         <a href="javascript:;" class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10" @click="$store.app.toggleSidebar()">
                             <svg class="m-auto h-5 w-5" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -282,7 +282,7 @@
                         <div class="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
                             <a href="index.php" class="main-logo flex shrink-0 items-center">
                                 <img class="inline w-8 ltr:-ml-1 rtl:-mr-1" src="assets/images/university.png" alt="image" />
-                                <span class="hidden align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">CONSEJERIA UPRA</span>
+                                <span class="hidden align-middle text-2xl font-semibold transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">PRE-MATRICULA</span>
                             </a>
 
                             <a href="javascript:;" class="collapse-icon flex flex-none rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary ltr:ml-2 rtl:mr-2 dark:bg-dark/40 dark:text-[#d0d2d6] dark:hover:bg-dark/60 dark:hover:text-primary lg:hidden" @click="$store.app.toggleSidebar()">
@@ -295,67 +295,6 @@
                         </div>
                         <div x-data="header" class="flex items-center space-x-1.5 ltr:ml-auto rtl:mr-auto rtl:space-x-reverse dark:text-[#d0d2d6] sm:flex-1 ltr:sm:ml-0 sm:rtl:mr-0 lg:space-x-2">
                             <div class="sm:ltr:mr-auto sm:rtl:ml-auto" x-data="{ search: false }" @click.outside="search = false">
-                            </div>
-
-
-                            <div class="dropdown" x-data="dropdown" @click.outside="open = false">
-                                <a href="javascript:;" class="block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60" @click="toggle">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 10C22.0185 10.7271 22 11.0542 22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M6 8L8.1589 9.79908C9.99553 11.3296 10.9139 12.0949 12 12.0949C13.0861 12.0949 14.0045 11.3296 15.8411 9.79908" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                        <circle cx="19" cy="5" r="3" stroke="currentColor" stroke-width="1.5" />
-                                    </svg>
-                                </a>
-                                <ul x-cloak x-show="open" x-transition x-transition.duration.300ms class="top-11 w-[300px] !py-0 text-xs text-dark ltr:-right-16 rtl:-left-16 dark:text-white-dark sm:w-[375px] sm:ltr:-right-2 sm:rtl:-left-2">
-                                    <li class="mb-5">
-                                        <div class="relative overflow-hidden rounded-t-md !p-5 text-white">
-                                            <div class="absolute inset-0 h-full w-full bg-[url('../images/menu-heade.jpg')] bg-cover bg-center bg-no-repeat"></div>
-                                            <h4 class="relative z-10 text-lg font-semibold">Messages</h4>
-                                        </div>
-                                    </li>
-                                    <template x-for="msg in messages">
-                                        <li>
-                                            <div class="flex items-center px-5 py-3" @click.self="toggle">
-                                                <div x-html="msg.image"></div>
-                                                <span class="px-3 dark:text-gray-500">
-                                                    <div class="text-sm font-semibold dark:text-white-light/90" x-text="msg.title"></div>
-                                                    <div x-text="msg.message"></div>
-                                                </span>
-                                                <span class="whitespace-pre rounded bg-white-dark/20 px-1 font-semibold text-dark/60 ltr:ml-auto ltr:mr-2 rtl:mr-auto rtl:ml-2 dark:text-white-dark" x-text="msg.time"></span>
-                                                <button type="button" class="text-neutral-300 hover:text-danger" @click="removeMessage(msg.id)">
-                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <circle opacity="0.5" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-                                                        <path d="M14.5 9.50002L9.5 14.5M9.49998 9.5L14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </li>
-                                    </template>
-                                    <template x-if="messages.length">
-                                        <li class="mt-5 border-t border-white-light text-center dark:border-white/10">
-                                            <div class="group flex cursor-pointer items-center justify-center px-4 py-4 font-semibold text-primary dark:text-gray-400" @click="toggle">
-                                                <span class="group-hover:underline ltr:mr-1 rtl:ml-1">VIEW ALL ACTIVITIES</span>
-                                                <svg class="h-4 w-4 transition duration-300 group-hover:translate-x-1 ltr:ml-1 rtl:mr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </div>
-                                        </li>
-                                    </template>
-                                    <template x-if="!messages.length">
-                                        <li class="mb-5">
-                                            <div class="!grid min-h-[200px] place-content-center text-lg hover:!bg-transparent">
-                                                <div class="mx-auto mb-4 rounded-full text-primary ring-4 ring-primary/30">
-                                                    <svg width="40" height="40" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path opacity="0.5" d="M20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20C15.5228 20 20 15.5228 20 10Z" fill="currentColor" />
-                                                        <path d="M10 4.25C10.4142 4.25 10.75 4.58579 10.75 5V11C10.75 11.4142 10.4142 11.75 10 11.75C9.58579 11.75 9.25 11.4142 9.25 11V5C9.25 4.58579 9.58579 4.25 10 4.25Z" fill="currentColor" />
-                                                        <path d="M10 15C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15Z" fill="currentColor" />
-                                                    </svg>
-                                                </div>
-                                                No data available.
-                                            </div>
-                                        </li>
-                                    </template>
-                                </ul>
                             </div>
 
                             <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
@@ -391,7 +330,7 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Expedientes de Estudiantes</h2>
+                            <h2 class="text-xl">Lista de Estudiantes</h2>
                             <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                                 <div class="flex gap-3">
                                     <div>
@@ -418,7 +357,7 @@
                                                     stroke-linecap="round"
                                                 />
                                             </svg>
-                                            Crear estudiante
+                                            Añadir estudiante
                                         </button>
                                         <div class="fixed inset-0 z-[999] hidden overflow-y-auto bg-[black]/60" :class="addContactModal && '!block'">
                                             <div class="flex min-h-screen items-center justify-center px-4" @click.self="addContactModal = false">
@@ -454,41 +393,25 @@
                                                         x-text="params.id ? 'Editar estudiante' : 'Crear estudiante'"
                                                     ></h3>
                                                     <div class="p-5">
-                                                        <form @submit.prevent="saveUser">
+                                                        <form>
                                                             <div class="mb-5 grid grid-cols-1 md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                                                 <div>
                                                                     <label for="nombre">Nombre</label>
-                                                                    <input x-model="params.nombre" id="nombre" type="text" placeholder="" class="form-input" required/>
+                                                                    <input id="nombre" type="text" placeholder="" class="form-input" required/>
                                                                 </div>
                                                                 <div>
-                                                                    <label for="nombre2">2do nombre</label>
-                                                                    <input x-model="params.nombre2" id="nombre2" type="text" placeholder="" class="form-input"/>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="apellidoP">Apellido P</label>
-                                                                    <input x-model="params.apellidoP" id="apellidoP" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="apellidoM">Apellido M</label>
-                                                                    <input x-model="params.apellidoM" id="apellidoM" type="text" placeholder="" class="form-input"/>
+                                                                    <label for="apellidoP">Apellido</label>
+                                                                    <input id="apellidoP" type="text" placeholder="" class="form-input" required/>
                                                                 </div>
                                                             </div>
                                                             <div class="mb-5">
-                                                                <label for="email">Email</label>
+                                                                <label for="email">Correo electronico</label>
                                                                 <input
                                                                     id="email"
                                                                     type="email"
                                                                     placeholder="yeyo.soto2@upr.edu"
                                                                     class="form-input"
-                                                                    x-model="params.email"
                                                                 />
-                                                            </div>
-                                                            <div class="mb-5">
-                                                                <label for="tipo">Minor</label>
-                                                                <select id="gridYear" x-model="params.minor" class="form-select text-white-dark">
-                                                                <option></option>    
-                                                                <option>Web Design</option>
-                                                                </select>
                                                             </div>
 
                                                             <div class="mb-5">
@@ -498,32 +421,26 @@
                                                                     type="text"
                                                                     placeholder="840-xx-xxxx"
                                                                     class="form-input"
-                                                                    x-model="params.numero"
                                                                 />
                                                             </div>
+
                                                             <div class="mb-5">
-                                                                <label for="cohorte">Cohorte</label>
+                                                                <label for="axo">Año de estudio</label>
                                                                 <input
-                                                                    id="cohorte"
-                                                                    type="text"
-                                                                    placeholder="2022"
+                                                                    id="axo"
+                                                                    type="number"
                                                                     class="form-input"
-                                                                    x-model="params.cohorte"
                                                                 />
-                                                            </div>
-                                                            <div class="mb-5">
-                                                                <label for="birthday">Birthday</label>
-                                                                <input type="date" x-model="params.birthday" id="birthday" name="birthday">               
-                                                            </div>
+                                                            </div>  
                                                             
                                                             <div class="mt-8 flex items-center justify-end">
                                                                 <button type="button" class="btn btn-outline-danger" @click="addContactModal = false">
-                                                                    Cancel
+                                                                    Cancelar
                                                                 </button>
                                                                 <button
                                                                     type="submit"
                                                                     class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                                    x-text="params.id ? 'Update' : 'Add'"
+                                                                    x-text="params.id ? 'Update' : 'Añadir'"
                                                                 ></button>
                                                             </div>
                                                         </form>
@@ -582,7 +499,7 @@
                                 </table>
                                 </div>
                             </template>
-                        </div>
+                        </div> <br>
                         <!-- paginacion -->
                         <?php
                             $totalPages = ceil($totalStudents / $perPage); // Calcular el total de páginas

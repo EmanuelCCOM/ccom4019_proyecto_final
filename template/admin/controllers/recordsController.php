@@ -16,7 +16,7 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
     // Número de estudiantes por página
-    $perPage = 1;
+    $perPage = 5;
 
     // Obtén los estudiantes de la página actual y el total de estudiantes
     list($students, $totalStudents) = $recordController->getStudentsByPage($conn, $page, $perPage);
