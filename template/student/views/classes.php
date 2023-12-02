@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -26,8 +23,8 @@
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]">
 
     <?php
-        if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
-            
+        session_start();
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
             header("Location: ../../");
             exit();
         }
@@ -915,4 +912,4 @@
     </script>
 </body>
 
-</html>
+</html> 
