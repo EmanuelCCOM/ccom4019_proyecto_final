@@ -70,7 +70,7 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Lista de Estudiantes</h2>
+                            <h2 class="text-xl">Lista de Cursoss</h2>
                             <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                                 <div class="flex gap-3">
                                     <div>
@@ -97,7 +97,7 @@
                                                     stroke-linecap="round"
                                                 />
                                             </svg>
-                                            Añadir estudiante
+                                            Añadir Curso
                                         </button>
                                         <div class="fixed inset-0 z-[999] hidden overflow-y-auto bg-[black]/60" :class="addContactModal && '!block'">
                                             <div class="flex min-h-screen items-center justify-center px-4" @click.self="addContactModal = false">
@@ -130,52 +130,36 @@
                                                     </button>
                                                     <h3
                                                         class="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]"
-                                                        x-text="params.id ? 'Editar estudiante' : 'Crear estudiante'"
+                                                        x-text="params.id ? 'Editar estudiante' : 'Crear Curso'"
                                                     ></h3>
                                                     <div class="p-5">
-                                                        <form method="post" action="../controllers/recordsController.php">
+                                                        <form method="post" action="classesController.php">
                                                             <div class="mb-5 grid grid-cols-1 md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                                                <input type="hidden" name="action" value="addStudent">
+                                                                <input type="hidden" name="action" value="addCourse">
                                                                 <div>
-                                                                    <label for="nombre">Nombre</label>
-                                                                    <input name="nombre" id="nombre" type="text" placeholder="" class="form-input" required/>
+                                                                    <label for="codigo">Codigo del Curso</label>
+                                                                    <input name="codigo" id="codigo" type="text" placeholder="" class="form-input" required/>
                                                                 </div>
-                                                                <div>
-                                                                    <label for="apellidoP">Apellido</label>
-                                                                    <input name="apellidoP" id="apellidoP" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-5">
-                                                                <label for="email">Correo electronico</label>
-                                                                <input
-                                                                    id="email"
-                                                                    type="email"
-                                                                    placeholder="yeyo.soto2@upr.edu"
-                                                                    class="form-input"
-                                                                    name="email"
-                                                                />
                                                             </div>
 
                                                             <div class="mb-5">
-                                                                <label for="numero">Número de estudiante</label>
+                                                                <label for="titulo">Titulo</label>
                                                                 <input
-                                                                    id="numero"
+                                                                    id="titulo"
                                                                     type="text"
-                                                                    placeholder="840-xx-xxxx"
+                                                                    placeholder=""
                                                                     class="form-input"
-                                                                    name="numero"
+                                                                    name="titulo"
                                                                 />
                                                             </div>
 
-                                                            <div class="mb-5">
-                                                                <label for="axo">Año de estudio</label>
-                                                                <input
-                                                                    id="axo"
-                                                                    type="number"
-                                                                    class="form-input"
-                                                                    name="axo"
-                                                                />
-                                                            </div>  
+                                                            <div class="mb-5 grid grid-cols-1 md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                                                <input type="hidden" name="action" value="addCourse">
+                                                                <div>
+                                                                    <label for="creditos">Cantidad de Creditos</label>
+                                                                    <input name="creditos" id="creditos" type="number" placeholder="" class="form-input" required/>
+                                                                </div>
+                                                            </div>
                                                             
                                                             <div class="mt-8 flex items-center justify-end">
                                                                 <button type="button" class="btn btn-outline-danger" @click="addContactModal = false">
@@ -196,11 +180,11 @@
                                 </div>
 
                                 <div class="relative">
-                                    <form action="recordsController.php" method="get">
+                                    <form action="classesController.php" method="get">
                                         <input
                                             type="text"
                                             name="search"
-                                            placeholder="Buscar estudiante"
+                                            placeholder="Buscar Curso"
                                             class="peer form-input py-2 ltr:pr-11 rtl:pl-11"
                                         />
                                         <div class="absolute top-1/2 -translate-y-1/2 peer-focus:text-primary ltr:right-[11px] rtl:left-[11px]">
@@ -221,30 +205,36 @@
                                 <table class="table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Numero de Estudiante</th>
+                                            <th>Codigo del Curso</th>
                                             <th>Nombre</th>
-                                            <th>Año de estudio</th>
+                                            <th>Creditos</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($students as $student): ?>
+                                        <?php foreach ($classes as $class): ?>
                                             <?php
-                                                $numero = $student['student_id'];
-                                                // Formatear el número en "XXX-XX-XXXX"
-                                                $numero_formateado = substr($numero, 0, 3) . '-' . substr($numero, 3, 2) . '-' . substr($numero, 5);
+                                                // Valor del identificador del curso
+                                                $course_id = $class['course_id'];
+
+                                                // Extraer las primeras 4 letras y los siguientes 4 números
+                                                $letras = substr($course_id, 0, 4);
+                                                $numeros = substr($course_id, 4, 4);
+
+                                                // Formatear la cadena con el guion "-"
+                                                $codigo_forma = $letras . '-' . $numeros;
                                             ?>
                                             <tr>
-                                                <td><?php echo $numero_formateado; ?></td>
-                                                <td><?php echo $student['name'] . ' ' . $student['lastName']; ?></td>
-                                                <td><?php echo $student['year_of_study']; ?></td>
+                                                <td><?php echo $codigo_forma; ?></td>
+                                                <td><?php echo $class['title']; ?></td>
+                                                <td><?php echo $class['credits']; ?></td>
                                                 <td>
                                                     <div class="flex items-center gap-4">
-                                                        <form action="editEstuController.php" method="post">
-                                                            <input type="hidden" name="action" value="viewStudent">
-                                                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
+                                                        <form action="courseController.php" method="post">
+                                                            <input type="hidden" name="action" value="viewCourse">
+                                                            <input type="hidden" name="course_id" value="<?php echo $class['course_id']; ?>">
                                                             <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                                Editar
+                                                                Ver detalles
                                                             </button>
                                                         </form>
                                                     </div>
@@ -258,7 +248,7 @@
                         </div> <br>
                         <!-- paginacion -->
                         <?php
-                            $totalPages = ceil($totalStudents / $perPage); // Calcular el total de páginas
+                            $totalPages = ceil($totalClasses / $perPage); // Calcular el total de páginas
                             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
                             $searchTerm = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; // Obtén el término de búsqueda si existe
                             

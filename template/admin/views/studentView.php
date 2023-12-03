@@ -70,209 +70,35 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Lista de Estudiantes</h2>
-                            <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
-                                <div class="flex gap-3">
-                                    <div>
-                                        <button type="button" class="btn btn-primary" @click="editUser">
-                                            <svg
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="h-5 w-5 ltr:mr-2 rtl:ml-2"
-                                            >
-                                                <circle cx="10" cy="6" r="4" stroke="currentColor" stroke-width="1.5" />
-                                                <path
-                                                    opacity="0.5"
-                                                    d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                />
-                                                <path
-                                                    d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                    stroke-linecap="round"
-                                                />
-                                            </svg>
-                                            Añadir estudiante
-                                        </button>
-                                        <div class="fixed inset-0 z-[999] hidden overflow-y-auto bg-[black]/60" :class="addContactModal && '!block'">
-                                            <div class="flex min-h-screen items-center justify-center px-4" @click.self="addContactModal = false">
-                                                <div
-                                                    x-show="addContactModal"
-                                                    x-transition
-                                                    x-transition.duration.300
-                                                    class="panel my-8 w-[90%] max-w-lg overflow-hidden rounded-lg border-0 p-0 md:w-full"
-                                                >
-                                                    <button
-                                                        type="button"
-                                                        class="absolute top-4 text-white-dark hover:text-dark ltr:right-4 rtl:left-4"
-                                                        @click="addContactModal = false"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="24px"
-                                                            height="24px"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            stroke-width="1.5"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            class="h-6 w-6"
-                                                        >
-                                                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                                                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                                                        </svg>
-                                                    </button>
-                                                    <h3
-                                                        class="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]"
-                                                        x-text="params.id ? 'Editar estudiante' : 'Crear estudiante'"
-                                                    ></h3>
-                                                    <div class="p-5">
-                                                        <form method="post" action="../controllers/recordsController.php">
-                                                            <div class="mb-5 grid grid-cols-1 md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                                                <input type="hidden" name="action" value="addStudent">
-                                                                <div>
-                                                                    <label for="nombre">Nombre</label>
-                                                                    <input name="nombre" id="nombre" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="apellidoP">Apellido</label>
-                                                                    <input name="apellidoP" id="apellidoP" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-5">
-                                                                <label for="email">Correo electronico</label>
-                                                                <input
-                                                                    id="email"
-                                                                    type="email"
-                                                                    placeholder="yeyo.soto2@upr.edu"
-                                                                    class="form-input"
-                                                                    name="email"
-                                                                />
-                                                            </div>
-
-                                                            <div class="mb-5">
-                                                                <label for="numero">Número de estudiante</label>
-                                                                <input
-                                                                    id="numero"
-                                                                    type="text"
-                                                                    placeholder="840-xx-xxxx"
-                                                                    class="form-input"
-                                                                    name="numero"
-                                                                />
-                                                            </div>
-
-                                                            <div class="mb-5">
-                                                                <label for="axo">Año de estudio</label>
-                                                                <input
-                                                                    id="axo"
-                                                                    type="number"
-                                                                    class="form-input"
-                                                                    name="axo"
-                                                                />
-                                                            </div>  
-                                                            
-                                                            <div class="mt-8 flex items-center justify-end">
-                                                                <button type="button" class="btn btn-outline-danger" @click="addContactModal = false">
-                                                                    Cancelar
-                                                                </button>
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                                    x-text="params.id ? 'Update' : 'Añadir'"
-                                                                ></button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="relative">
-                                    <form action="recordsController.php" method="get">
-                                        <input
-                                            type="text"
-                                            name="search"
-                                            placeholder="Buscar estudiante"
-                                            class="peer form-input py-2 ltr:pr-11 rtl:pl-11"
-                                        />
-                                        <div class="absolute top-1/2 -translate-y-1/2 peer-focus:text-primary ltr:right-[11px] rtl:left-[11px]">
-                                            <button type="submit">
-                                                <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" stroke-width="1.5" opacity="0.5"></circle>
-                                                    <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <?php
+                                $numero = $studentInfo['student_id'];
+                                // Formatear el número en "XXX-XX-XXXX"
+                                $numero_formateado = substr($numero, 0, 3) . '-' . substr($numero, 3, 2) . '-' . substr($numero, 5);
+                            ?>
+                            <h2 class="text-xl"><?php echo "Informacion del estudiante: $numero_formateado"; ?></h2>
                         </div>
-                        <div class="panel mt-5 overflow-hidden border-0 p-0">
-                            <template x-if="displayType === 'list'">
-                                <div class="table-responsive">
-                                <table class="table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Numero de Estudiante</th>
-                                            <th>Nombre</th>
-                                            <th>Año de estudio</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($students as $student): ?>
-                                            <?php
-                                                $numero = $student['student_id'];
-                                                // Formatear el número en "XXX-XX-XXXX"
-                                                $numero_formateado = substr($numero, 0, 3) . '-' . substr($numero, 3, 2) . '-' . substr($numero, 5);
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $numero_formateado; ?></td>
-                                                <td><?php echo $student['name'] . ' ' . $student['lastName']; ?></td>
-                                                <td><?php echo $student['year_of_study']; ?></td>
-                                                <td>
-                                                    <div class="flex items-center gap-4">
-                                                        <form action="editEstuController.php" method="post">
-                                                            <input type="hidden" name="action" value="viewStudent">
-                                                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
-                                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                                Editar
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                        <div class="panel mt-5 overflow-hidden border-0 p-0" style="display: flex; max-width: 400px;">
+                            <form id="updateForm" action="editEstuController.php" method="post" style="width: 100%;">
+                                <input type="hidden" name="action" value="updateStudent">
+                                <input type="hidden" name="studenId" value="<?php echo $studentInfo['student_id'];?>">
+                                <div class="flex">
+                                    <div class="bg-[#eee] flex justify-center items-center ltr:rounded-l-md rtl:rounded-r-md px-3 font-semibold border ltr:border-r-0 rtl:border-l-0 border-[#e0e6ed] dark:border-[#17263c] dark:bg-[#1b2e4b]" style="width: 180px;">Nombre y Apellido</div>
+                                    <input type="text" name="name" placeholder="First Name" class="form-input ltr:border-r-0 rtl:border-l-0 focus:!border-r rounded-none" style="flex: 1.5;" value="<?php echo $studentInfo['name']?>"/>
+                                    <input type="text" name="last_name" placeholder="Last Name" class="form-input ltr:rounded-l-none rtl:rounded-r-none" style="flex: 1.5; background: transparent;" value="<?php echo $studentInfo['lastName']?>"/>
                                 </div>
-                            </template>
+                                <div class="flex">
+                                    <div class="bg-[#eee] flex justify-center items-center ltr:rounded-l-md rtl:rounded-r-md px-3 font-semibold border ltr:border-r-0 rtl:border-l-0 border-[#e0e6ed] dark:border-[#17263c] dark:bg-[#1b2e4b]" style="width: 180px;">Correo Electronico</div>
+                                    <input type="text" name="email" placeholder="Email" class="form-input ltr:border-r-0 rtl:border-l-0 focus:!border-r rounded-none" style="flex: 1.5;" value="<?php echo $studentInfo['email']?>"/>
+                                </div>
+                                <div class="flex">
+                                    <div class="bg-[#eee] flex justify-center items-center ltr:rounded-l-md rtl:rounded-r-md px-3 font-semibold border ltr:border-r-0 rtl:border-l-0 border-[#e0e6ed] dark:border-[#17263c] dark:bg-[#1b2e4b]" style="width: 180px;">Año de estudio</div>
+                                    <input type="number" name="axo" placeholder="#" class="form-input ltr:border-r-0 rtl:border-l-0 focus:!border-r rounded-none" style="flex: 1.5;" value="<?php echo $studentInfo['year_of_study']?>"/>
+                                </div>
+                            </form>
                         </div> <br>
-                        <!-- paginacion -->
-                        <?php
-                            $totalPages = ceil($totalStudents / $perPage); // Calcular el total de páginas
-                            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
-                            $searchTerm = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; // Obtén el término de búsqueda si existe
-                            
-                            // Mostrar los botones de paginación
-                            echo '<ul class="inline-flex items-center space-x-1 rtl:space-x-reverse m-auto">';
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . max($currentPage - 1, 1) . $searchTerm . '\'">Prev</button></li>';
-                            
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . $i . $searchTerm . '\'">' . $i . '</button></li>';
-                            }
-                            
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . min($currentPage + 1, $totalPages) . $searchTerm . '\'">Next</button></li>';
-                            echo '</ul>';
-                        ?>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Actualizar Estudiante</button> <br>
+                        <button><a href="recordsController.php" class="btn btn-danger">Cancelar</a></button>
+                </div>
                 <!-- end main content section -->
             </div>
 
@@ -294,6 +120,11 @@
 
 
     <script>
+
+        function submitForm() {
+            document.getElementById("updateForm").submit();
+        }
+
         document.addEventListener('alpine:init', () => {
             // main section
             Alpine.data('scrollToTop', () => ({
