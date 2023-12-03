@@ -15,7 +15,7 @@
 			<?php
                 include_once"db_connect.php";
                 $pass = "lkj";
-                $hash = password_hash($pass, PASSWORD_DEFAULT);
+                $hash = password_hash($password, PASSWORD_DEFAULT);
 
                 $query = "UPDATE admins
                           SET pass='$hash';";

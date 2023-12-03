@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2023 a las 06:38:47
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Host: 127.0.0.1
+-- Generation Time: Dec 03, 2023 at 05:00 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,31 +18,32 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `4019_final_p`
+-- Database: `4019_final_p`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `admins`
+-- Table structure for table `admins`
 --
 
 CREATE TABLE `admins` (
   `email` varchar(40) NOT NULL,
-  `pass` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `admins`
+-- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`email`, `pass`) VALUES
-('emanuel.martinez8@upr.edu', '$2y$10$6V2416anpvHjS/5uRtyQD.gOOmzbpl8kfLsRfuCMp3rgS7iWs6Pfa');
+INSERT INTO `admins` (`email`, `password`) VALUES
+('emanuel.martinez8@upr.edu', '$2y$10$6V2416anpvHjS/5uRtyQD.gOOmzbpl8kfLsRfuCMp3rgS7iWs6Pfa'),
+('jared.pupo@upr.edu', '1234');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `course`
+-- Table structure for table `course`
 --
 
 CREATE TABLE `course` (
@@ -51,10 +52,19 @@ CREATE TABLE `course` (
   `credits` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`course_id`, `title`, `credits`) VALUES
+('CCOM3001', 'Programacion 1', 5),
+('CCOM3002', 'Programación II', 5),
+('CCOM3020', 'Matemáticas Discretas', 3);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `enrollment`
+-- Table structure for table `enrollment`
 --
 
 CREATE TABLE `enrollment` (
@@ -68,7 +78,7 @@ CREATE TABLE `enrollment` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `section`
+-- Table structure for table `section`
 --
 
 CREATE TABLE `section` (
@@ -77,50 +87,54 @@ CREATE TABLE `section` (
   `capacity` int(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `section`
+--
+
+INSERT INTO `section` (`course_id`, `section_id`, `capacity`) VALUES
+('CCOM3001', 'M10', 3),
+('CCOM3001', 'L10', 2),
+('CCOM3002', 'LD0', 2),
+('CCOM3020', 'MA0', 3);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `student`
+-- Table structure for table `student`
 --
 
 CREATE TABLE `student` (
   `student_id` char(9) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(40) NOT NULL,
   `year_of_study` tinyint(1) NOT NULL DEFAULT 1,
   `name` varchar(20) NOT NULL,
-  `lastName` varchar(20) NOT NULL,
-  PRIMARY KEY (`email`)
+  `lastName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `student`
+-- Dumping data for table `student`
 --
 
 INSERT INTO `student` (`student_id`, `password`, `email`, `year_of_study`, `name`, `lastName`) VALUES
-('840199857', 'lkj', 'Emanuel8@upr.edu', 4, 'Emanuel', 'Martinez'),
-('840206745', 'lkj', 'Daisy3@upr.edu', 1, 'Daisy', 'Escalante');
+('840206745', '$2y$10$iG2LdVohkEgqnlaFzfX/YOx/Qa4oES70HFLLRjgfnjGgu3zmd/EF2', 'Daisy3@upr.edu', 1, 'Daisy', 'Escalante'),
+('840199857', '$2y$10$iG2LdVohkEgqnlaFzfX/YOx/Qa4oES70HFLLRjgfnjGgu3zmd/EF2', 'Emanuel8@upr.edu', 4, 'Emanuel', 'Martinez');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`email`);
-
---
--- Indices de la tabla `course`
+-- Indexes for table `course`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`course_id`);
 
 --
--- Indices de la tabla `student`
+-- Indexes for table `student`
 --
 ALTER TABLE `student`
+  ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `student_id` (`student_id`);
 COMMIT;
 
