@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 03, 2023 at 05:00 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-12-2023 a las 19:42:49
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,89 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `4019_final_p`
+-- Base de datos: `4019_final_p`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
---
-
-CREATE TABLE `admins` (
-  `email` varchar(40) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admins`
---
-
-INSERT INTO `admins` (`email`, `password`) VALUES
-('emanuel.martinez8@upr.edu', '$2y$10$6V2416anpvHjS/5uRtyQD.gOOmzbpl8kfLsRfuCMp3rgS7iWs6Pfa'),
-('jared.pupo@upr.edu', '1234');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course`
---
-
-CREATE TABLE `course` (
-  `course_id` char(8) NOT NULL,
-  `title` varchar(30) NOT NULL,
-  `credits` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `course`
---
-
-INSERT INTO `course` (`course_id`, `title`, `credits`) VALUES
-('CCOM3001', 'Programacion 1', 5),
-('CCOM3002', 'Programación II', 5),
-('CCOM3020', 'Matemáticas Discretas', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `enrollment`
---
-
-CREATE TABLE `enrollment` (
-  `student_id` char(9) NOT NULL,
-  `course_id` char(8) NOT NULL,
-  `section_id` char(3) NOT NULL,
-  `timestamp` date NOT NULL,
-  `status` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `section`
---
-
-CREATE TABLE `section` (
-  `course_id` char(8) NOT NULL,
-  `section_id` char(3) NOT NULL,
-  `capacity` int(3) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `section`
---
-
-INSERT INTO `section` (`course_id`, `section_id`, `capacity`) VALUES
-('CCOM3001', 'M10', 3),
-('CCOM3001', 'L10', 2),
-('CCOM3002', 'LD0', 2),
-('CCOM3020', 'MA0', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student`
+-- Estructura de tabla para la tabla `student`
 --
 
 CREATE TABLE `student` (
@@ -113,25 +37,20 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `student`
+-- Volcado de datos para la tabla `student`
 --
 
 INSERT INTO `student` (`student_id`, `password`, `email`, `year_of_study`, `name`, `lastName`) VALUES
-('840206745', '$2y$10$iG2LdVohkEgqnlaFzfX/YOx/Qa4oES70HFLLRjgfnjGgu3zmd/EF2', 'Daisy3@upr.edu', 1, 'Daisy', 'Escalante'),
-('840199857', '$2y$10$iG2LdVohkEgqnlaFzfX/YOx/Qa4oES70HFLLRjgfnjGgu3zmd/EF2', 'Emanuel8@upr.edu', 4, 'Emanuel', 'Martinez');
+('840181999', 'lkj', 'abimelec.roman3@upr.edu', 6, 'Abimelec', 'Roman'),
+('840206745', '$2y$10$8ydjUZqxTNvP9AYqZScbSeSfvk32OjeVj0VoUl/QLn4AzmZ/wkbC6', 'Daisy3@upr.edu', 1, 'Daisy', 'Escalante'),
+('840199857', '$2y$10$8ydjUZqxTNvP9AYqZScbSeSfvk32OjeVj0VoUl/QLn4AzmZ/wkbC6', 'Emanuel8@upr.edu', 4, 'Emanuel', 'Martinez');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `course`
---
-ALTER TABLE `course`
-  ADD PRIMARY KEY (`course_id`);
-
---
--- Indexes for table `student`
+-- Indices de la tabla `student`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`email`),
