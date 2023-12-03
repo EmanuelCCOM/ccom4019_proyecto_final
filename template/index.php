@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+?>
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8" />
@@ -23,6 +26,17 @@
         class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased"
         :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]"
     >
+    <?php
+        if (isset($_SESSION['role'])) {// Verificar si la sesión está configurada
+            if ($_SESSION['role'] == 'admin') {
+                header('Location: admin/controllers/recordsController.php');
+                exit();
+            } elseif ($_SESSION['role'] == 'student') {
+                header('Location: student/controllers/coursesController.php');
+                exit();
+            }
+        }
+    ?>
         <!-- screen loader -->
         <div class="screen_loader animate__animated fixed inset-0 z-[60] grid place-content-center bg-[#fafafa] dark:bg-[#060818]">
             <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#4361ee">

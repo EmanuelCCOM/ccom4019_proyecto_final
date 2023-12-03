@@ -15,22 +15,23 @@ class AuthController
 {
     public function login()
     {
+        //se utilizo para DEBUGG
+        //$archivoRegistro = __DIR__ . '/archivo_de_registro.txt';
+        //error_log("El rol del usuario es: " . $user['role'] . "\n", 3, $archivoRegistro);
+
         // Obtener los valores del form en el index.php osea el login
         $email = $_POST["email"];
-        $password = $_POST["password"];
+        $pass = $_POST["password"];
 
         // llamada al model que regresa la contrasena del usuario con el email proveido.
-        $user = UserModel::getUserByEmail($email);
+        $user = UserModel::getUserByEmail($email, $pass);
 
-        //SE UTILIZO PARA DEBUGGING
-        //$archivoRegistro = __DIR__ . '/archivo_de_registro.txt';
-        //error_log("Contrasena introducida en el form: " . $password . "\n", 3, $archivoRegistro);
-        //error_log("Contrasena en la base de datos: " . $user['pass'] . "\n", 3, $archivoRegistro);
-        $_SESSION['role'] = $user['role'];
         if ($user['role'] == "admin") {
+            session_start();
             $_SESSION['role'] = 'admin';
             header("Location: ../admin/controllers/recordsController.php");
         } elseif ($user['role'] == "student") {
+            session_start();
             $_SESSION['role'] = 'student';
             header("Location: ../student/controllers/coursesController.php");
         } else {

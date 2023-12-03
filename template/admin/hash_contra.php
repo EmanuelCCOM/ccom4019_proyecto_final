@@ -14,11 +14,11 @@
             <h1>Tema principal de la página</h1>
 			<?php
                 include_once"db_connect.php";
-                $pass = "lkj";
-                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $pass = "a";
+                $hash = password_hash($pass, PASSWORD_DEFAULT);
 
-                $query = "UPDATE admins
-                          SET pass='$hash';";
+                $query = "UPDATE student
+                          SET password='$hash';";
                 if ($conn->query($query) === TRUE)
                 {
                     echo"<h3>contrasena acutalizada correctamente.<h3>";
