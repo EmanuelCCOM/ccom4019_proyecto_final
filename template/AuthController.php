@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($isStudent) {
         // Redirect to classes.php
         $_SESSION['role'] = 'student';
-        header('Location: student/views/classes.php');
+        header('Location: student/controllers/coursesController.php');
         exit();
     } else {
         // Invalid login message
