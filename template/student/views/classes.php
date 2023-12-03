@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -26,8 +23,7 @@
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]">
 
     <?php
-        if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
-            
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
             header("Location: ../../");
             exit();
         }
@@ -466,66 +462,35 @@
                                             <tr>
                                                 <th>Nombre del curso</th>
                                                 <th>Codigo del curso</th>
+                                                <th>Sección</th>
                                                 <th>Creditos</th>
                                                 <th>Capacidad</th>
-                                                <th>Enrollment</th>
+                                                <th>Inscripción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <template x-for="contact in filterdContactsList" :key="contact.id">
-                                                <tr>
-                                                    <td>
-                                                        <div class="flex w-max items-center">
-                                                            <!-- <div class="flex-none mr-3">
-                                                    <div class="p-1 bg-white-dark/30 rounded-full"><img class="h-8 w-8 rounded-full object-cover" src="assets/images/user-profile.jpeg" /></div>
-                                                </div> -->
-                                                            
-                                                            <div
-                                                                x-show="!contact.path && contact.nombre_curso"
-                                                                class="grid h-8 w-8 place-content-center rounded-full bg-primary text-sm font-semibold text-white ltr:mr-2 rtl:ml-2"
-                                                                x-text="contact.nombre_curso.charAt(0) + '' + contact.nombre.charAt(contact.nombre.indexOf(' ') + 1)"
-                                                            ></div>
-                                                            <div
-                                                                x-show="!contact.path && !contact.nombre_curso"
-                                                                class="rounded-full border border-gray-300 p-2 ltr:mr-2 rtl:ml-2 dark:border-gray-800"
-                                                            >
-                                                                <svg
-                                                                    width="24"
-                                                                    height="24"
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-4.5 w-4.5"
-                                                                >
-                                                                    <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="1.5"></circle>
-                                                                    <ellipse
-                                                                        opacity="0.5"
-                                                                        cx="12"
-                                                                        cy="17"
-                                                                        rx="7"
-                                                                        ry="4"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="1.5"
-                                                                    ></ellipse>
-                                                                </svg>
-                                                            </div>
-                                                            <div x-text="contact.nombre_curso"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td x-text="contact.code_curso"></td>
-                                                    <td x-text="contact.credits" class="whitespace-nowrap"></td>
-                                                    <td x-text="contact.capacity" class="whitespace-nowrap"></td>
-                                                    <td class="whitespace-nowrap">
-                                                        
-                                                        </template>
-                                                    </td>
-                                                </tr>
-                                            </template>
+                                        <?php foreach ($courses as $course): ?>
+                                            <tr>
+                                                <td><?php echo $course['title']; ?></td>
+                                                <td><?php echo $course['course_id']; ?></td>
+                                                <td><?php echo $course['section_id']; ?></td>
+                                                <td><?php echo $course['credits']; ?></td>
+                                                <td><?php echo $course['capacity']; ?></td>
+                                                <td>
+                                                    <div class="flex items-center gap-4">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.location.href='s_expediente.php'">
+                                                            Inscribir
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </template>
                         </div>
+                        
                 <!-- end main content section -->
 
             </div>
@@ -738,6 +703,7 @@
                         id: null,
                         nombre_curso: '',
                         code_curso: '',
+                        section: '',
                         credits: null,
                         capacity: null,
                     },
@@ -747,53 +713,13 @@
                         id: null,
                         nombre_curso: '',
                         code_curso: '',
+                        section: '',
                         credits: null,
                         capacity: null,
                     },
                     filterdContactsList: [],
                     searchUser: '',
-                    contactList: [
-                        {
-                            id: 1,
-                            path: 'profile-35.png',
-                            nombre_curso: 'Programacion 1',
-                            credits: 5,
-                            code_curso: 'CCOM3001',
-                            capacity: 20,
-                        },
-                        {
-                            id: 2,
-                            path: 'profile-35.png',
-                            nombre_curso: 'Programación II',
-                            credits: 5,
-                            code_curso: 'CCOM3002',
-                            capacity: 12,
-                        },
-                        {
-                            id: 3,
-                            path: 'profile-35.png',
-                            nombre_curso: 'Niveles Lógicos',
-                            credits: 3,
-                            code_curso: 'CCOM3010',
-                            capacity: 8,
-                        },
-                        {
-                            id: 4,
-                            path: 'profile-35.png',
-                            nombre_curso: 'Comp. en la Sociedad',
-                            credits: 3,
-                            code_curso: 'CCOM3015',
-                            capacity: 20,
-                        },
-                        {
-                            id: 5,
-                            path: 'profile-35.png',
-                            nombre_curso: 'Matemáticas Discretas',
-                            credits: 3,
-                            code_curso: 'CCOM3020',
-                            capacity: 10,
-                        },
-                    ],
+                    contactList: [],
 
                     init() {
                         this.searchContacts();
@@ -915,4 +841,4 @@
     </script>
 </body>
 
-</html>
+</html> 

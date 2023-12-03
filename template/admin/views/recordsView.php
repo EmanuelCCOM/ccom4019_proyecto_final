@@ -22,8 +22,7 @@
 <body x-data="main" class="relative overflow-x-hidden font-nunito text-sm font-normal antialiased" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]">
 
     <?php
-        if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
-            // La sesión no está iniciada o el usuario no tiene el rol de administrador, redirige a la página de inicio de sesión
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             header("Location: ../../");
             exit();
         }

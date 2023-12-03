@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -93,7 +92,7 @@
                                     <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Iniciar Sesion</h1>
                                     <p class="text-base font-bold leading-normal text-white-dark">Entra tu nombre de usuario y tu contraseña para iniciar sesion</p>
                                 </div>
-                                <form class="space-y-5 dark:text-white" method="POST" action="controllers/AuthController.php">
+                                <form class="space-y-5 dark:text-white" method="POST" action="AuthController.php">  
                                     <div>
                                         <label for="email">Correo Electrónico</label>
                                         <div class="relative text-white-dark">
@@ -111,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="Password">Contraseña</label>
+                                        <label for="password">Contraseña</label>
                                         <div class="relative text-white-dark">
                                             <input
                                                 id="password"
