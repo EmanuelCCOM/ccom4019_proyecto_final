@@ -267,7 +267,7 @@
                                             <input
                                                 type="text"
                                                 name="search"
-                                                placeholder="Buscar estudiante"
+                                                placeholder="Buscar Curso"
                                                 class="peer form-input py-2 ltr:pr-11 rtl:pl-11"
                                             />
                                             <div class="absolute top-1/2 -translate-y-1/2 peer-focus:text-primary ltr:right-[11px] rtl:left-[11px]">
@@ -297,24 +297,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach ($courses as $course): ?>
+                                        <?php foreach ($filteredCourses as $course): ?>
                                             
                                                 <tr>
-                                                <form method="post" action="addclassController.php">
-                                                    <td><?php echo $course['title']; ?></td>
-                                                    <td><?php echo $course['course_id']; ?></td>
-                                                    <td><?php echo $course['section_id']; ?></td>
-                                                    <td><?php echo $course['credits']; ?></td>
-                                                    <td><?php echo $course['capacity']; ?></td>
-                                                    <td>
-                                                        <div class="flex items-center gap-4">
-                                                        <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
-                                                        <button type="submit" name="inscribir" class="btn btn-sm btn-outline-primary">
-                                                                Inscribir
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </form>
+                                                    
+                                                        <td><?php echo $course['title']; ?></td>
+                                                        <td><?php echo $course['course_id']; ?></td>
+                                                        <td><?php echo $course['section_id']; ?></td>
+                                                        <td><?php echo $course['credits']; ?></td>
+                                                        <td><?php echo $course['capacity']; ?></td>
+                                                        <td>
+                                                            <div class="flex items-center gap-4">
+                                                                <form method="post" action="../controllers/requestController.php">
+                                                                    <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
+                                                                    <input type="hidden" name="section_id" value="<?php echo $course['section_id']; ?>">
+                                                                    <button type="submit" name="inscribir" class="btn btn-sm btn-outline-primary">
+                                                                    Inscribir
+                                                                    </button>
+                                                                </form>
+                                                                
+                                                            </div>
+                                                        </td>
                                                 </tr>
                                         <?php endforeach; ?>
                                         </tbody> 

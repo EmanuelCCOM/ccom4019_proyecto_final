@@ -4,7 +4,6 @@ session_start();
 require_once '../models/coursesModel.php';
 
 if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
-    // La sesión no está iniciada o el usuario no tiene el rol de estudiante, redirige a la página de inicio de sesión
     header("Location: ../../");
     exit();
 } else {
@@ -20,7 +19,7 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
     // Obtén los cursos de la página actual y el total de cursos con el término de búsqueda
-    list($courses, $totalCourses) = $courseController->getCoursesByPage($conn, $page, $perPage, $searchTerm);
+    list($filteredCourses, $totalCourses) = $courseController->getCoursesByPage($conn, $page, $perPage, $searchTerm);
 
     // Llamar a la vista y pasar los datos de los cursos
     include '../views/classes.php';
@@ -30,7 +29,22 @@ class CourseController {
     public function getCoursesByPage($conn, $page, $perPage, $searchTerm) {
         $courses = CoursesModel::getCoursesByPage($conn, $page, $perPage, $searchTerm);
         $totalCourses = CoursesModel::getTotalCourses($conn, $searchTerm);
-        return array($courses, $totalCourses);
+
+        // Define $filteredCourses here
+        $filteredCourses = [];
+
+        // Additional logic to filter courses based on enrollment
+        $student_id = $_SESSION['student_id'];
+        $enrolledCourses = CoursesModel::getEnrolledCourses($conn, $student_id);
+
+        foreach ($courses as $course) {
+            // Check if the course is already enrolled
+            if (!in_array($course['course_id'], $enrolledCourses)) {
+                $filteredCourses[] = $course;
+            }
+        }
+
+        return array($filteredCourses, $totalCourses);
     }
 }
 ?>

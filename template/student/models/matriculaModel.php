@@ -20,7 +20,7 @@ class EnrollmentModel {
             WHERE student_id = '$student_id'";
 
         if (!empty($searchTerm)) {
-            $sql .= " AND course.course_id LIKE '%$searchTerm%'";
+            $sql .= " AND course.title LIKE '%$searchTerm%'";
         }
 
         $sql .= " LIMIT $perPage OFFSET $offset";

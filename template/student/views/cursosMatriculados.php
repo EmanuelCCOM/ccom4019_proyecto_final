@@ -263,11 +263,11 @@
                                 </div>
 
                                 <div class="relative">
-                                    <form action="coursesController.php" method="get">
+                                    <form action="matriculaController.php" method="get">
                                             <input
                                                 type="text"
                                                 name="search"
-                                                placeholder="Buscar estudiante"
+                                                placeholder="Buscar Curso"
                                                 class="peer form-input py-2 ltr:pr-11 rtl:pl-11"
                                             />
                                             <div class="absolute top-1/2 -translate-y-1/2 peer-focus:text-primary ltr:right-[11px] rtl:left-[11px]">
@@ -292,6 +292,7 @@
                                                 <th>Codigo del curso</th>
                                                 <th>Sección</th>
                                                 <th>Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -306,6 +307,20 @@
                                                     echo $enrollment['status'] == 0 ? 'Aprobación Pendiente...' : 'Aceptado';
                                                     ?>
                                                 </td>
+                                                <td>
+                                                    <div class="flex items-center gap-4">
+                                                                    <form method="post" action="../controllers/removeclassController.php">
+                                                                        <input type="hidden" name="student_id" value="<?php echo $enrollment['student_id']; ?>">
+                                                                        <input type="hidden" name="course_id" value="<?php echo $enrollment['course_id']; ?>">
+                                                                        <input type="hidden" name="section_id" value="<?php echo $enrollment['section_id']; ?>">
+                                                                        <input type="hidden" name="timestamp" value="<?php echo $enrollment['timestamp']; ?>">
+                                                                        <input type="hidden" name="status" value="<?php echo $enrollment['status']; ?>">
+                                                                        <button type="submit" name="eliminar" class="btn btn-sm btn-outline-primary">
+                                                                            Eliminar clase
+                                                                        </button>
+                                                                    </form>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
@@ -315,21 +330,8 @@
                         </div> <br>
                         <!-- paginacion -->
                         <?php
-                            $totalPages = ceil($totalEnrollments / $perPage); // Calcular el total de páginas
-                            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
                             $searchTerm = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; // Obtén el término de búsqueda si existe
-
-                            // Mostrar los botones de paginación
-                            echo '<ul class="inline-flex items-center space-x-1 rtl:space-x-reverse m-auto">';
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . max($currentPage - 1, 1) . $searchTerm . '\'">Prev</button></li>';
-
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . $i . $searchTerm . '\'">' . $i . '</button></li>';
-                            }
-
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . min($currentPage + 1, $totalPages) . $searchTerm . '\'">Next</button></li>';
-                            echo '</ul>';
-                            ?>
+                        ?>    
                 <!-- end main content section -->
 
             </div>
