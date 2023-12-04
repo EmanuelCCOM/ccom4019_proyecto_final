@@ -1,6 +1,6 @@
 <?php
 class EnrollmentModel {
-    public static function getEnrollmentsByPage($conn, $page, $perPage, $searchTerm) {
+    public static function getEnrollmentsByPage($conn, $page, $perPage, $searchTerm, $student_id) {
         $offset = ($page - 1) * $perPage;
         $sql = "
             SELECT
@@ -16,10 +16,11 @@ class EnrollmentModel {
             JOIN
                 course ON enrollment.course_id = course.course_id
             JOIN
-                section ON enrollment.section_id = section.section_id";
+                section ON enrollment.section_id = section.section_id
+            WHERE student_id = '$student_id'";
 
         if (!empty($searchTerm)) {
-            $sql .= " WHERE course.course_id LIKE '%$searchTerm%'";
+            $sql .= " AND course.course_id LIKE '%$searchTerm%'";
         }
 
         $sql .= " LIMIT $perPage OFFSET $offset";
@@ -37,12 +38,8 @@ class EnrollmentModel {
         }
     }
 
-    public static function getTotalEnrollments($conn, $searchTerm) {
-        $sql = "SELECT COUNT(*) as total FROM enrollment";
-
-        if (!empty($searchTerm)) {
-            $sql .= " JOIN course ON enrollment.course_id = course.course_id WHERE course.course_id LIKE '%$searchTerm%'";
-        }
+    public static function getTotalEnrollments($conn, $student_id) {
+        $sql = "SELECT COUNT(*) as total FROM enrollment WHERE student_id = '$student_id'";
 
         $result = $conn->query($sql);
 

@@ -33,6 +33,7 @@ class AuthController
         } elseif ($user['role'] == "student") {
             session_start();
             $_SESSION['role'] = 'student';
+            $_SESSION['student_id'] = $user['student_id'];
             header("Location: ../student/controllers/coursesController.php");
         } else {
             // Handle other roles or redirect to a default page

@@ -21,17 +21,20 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
     // Obtén el término de búsqueda si existe
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
-    // Obtén los cursos de la página actual y el total de cursos
-    list($enrollments, $totalEnrollments) = $enrollmentController->getEnrollmentsByPage($conn, $page, $perPage, $searchTerm);
+    // Obtén el student_id del usuario actual
+    $student_id = $_SESSION['student_id'];
+
+    // Obtén las matrículas del estudiante de la página actual y el total de matrículas
+    list($enrollments, $totalEnrollments) = $enrollmentController->getEnrollmentsByPage($conn, $page, $perPage, $searchTerm, $student_id);
 
     // Llamar a la vista y pasar los datos de las matrículas
     include '../views/cursosMatriculados.php'; // Assuming you have a 'cursosMatriculados.php' view file
 }
 
 class EnrollmentController {
-    public function getEnrollmentsByPage($conn, $page, $perPage, $searchTerm) {
-        $enrollments = EnrollmentModel::getEnrollmentsByPage($conn, $page, $perPage, $searchTerm);
-        $totalEnrollments = EnrollmentModel::getTotalEnrollments($conn, $searchTerm);
+    public function getEnrollmentsByPage($conn, $page, $perPage, $searchTerm, $student_id) {
+        $enrollments = EnrollmentModel::getEnrollmentsByPage($conn, $page, $perPage, $searchTerm, $student_id);
+        $totalEnrollments = EnrollmentModel::getTotalEnrollments($conn, $searchTerm, $student_id);
         return array($enrollments, $totalEnrollments);
     }
 }
