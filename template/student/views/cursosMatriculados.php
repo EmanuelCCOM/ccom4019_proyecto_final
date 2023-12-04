@@ -217,7 +217,7 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Cursos</h2>
+                            <h2 class="text-xl">Cursos Matriculados</h2>
                             <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                                 <div class="flex gap-3">
                                     <div>
@@ -291,40 +291,31 @@
                                                 <th>Nombre del curso</th>
                                                 <th>Codigo del curso</th>
                                                 <th>Sección</th>
-                                                <th>Creditos</th>
-                                                <th>Capacidad</th>
-                                                <th>Inscripción</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php foreach ($courses as $course): ?>
-                                            
-                                                <tr>
-                                                <form method="post" action="addclassController.php">
-                                                    <td><?php echo $course['title']; ?></td>
-                                                    <td><?php echo $course['course_id']; ?></td>
-                                                    <td><?php echo $course['section_id']; ?></td>
-                                                    <td><?php echo $course['credits']; ?></td>
-                                                    <td><?php echo $course['capacity']; ?></td>
-                                                    <td>
-                                                        <div class="flex items-center gap-4">
-                                                        <input type="hidden" name="course_id" value="<?php echo $course['course_id']; ?>">
-                                                        <button type="submit" name="inscribir" class="btn btn-sm btn-outline-primary">
-                                                                Inscribir
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </form>
-                                                </tr>
+                                        <?php foreach ($enrollments as $enrollment): ?>
+                                            <tr>
+                                                <td><?php echo $enrollment['course_title']; ?></td>
+                                                <td><?php echo $enrollment['course_id']; ?></td>
+                                                <td><?php echo $enrollment['section_id']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    // Display "Aprobación pendiente" for status 0 and "Aceptado" for status 1
+                                                    echo $enrollment['status'] == 0 ? 'Aprobación Pendiente...' : 'Aceptado';
+                                                    ?>
+                                                </td>
+                                            </tr>
                                         <?php endforeach; ?>
-                                        </tbody> 
+                                        </tbody>
                                     </table>
                                 </div>
                             </template>
                         </div> <br>
                         <!-- paginacion -->
                         <?php
-                            $totalPages = ceil($totalCourses / $perPage); // Calcular el total de páginas
+                            $totalPages = ceil($totalEnrollments / $perPage); // Calcular el total de páginas
                             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
                             $searchTerm = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; // Obtén el término de búsqueda si existe
 

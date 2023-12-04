@@ -1,3 +1,4 @@
+<!-- courses.php -->
 <?php
 session_start();
 
@@ -10,6 +11,13 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
 } else {
     require_once '../db_connect.php';
     $courseController = new CourseController();
+
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscribir'])) {
+        $course_id = $_POST['course_id'];
+        $student_id = $_SESSION['user_id'];
+        $courseController->enrollInCourse($conn, $student_id, $course_id);
+    }
 
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
@@ -24,13 +32,5 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'student')) {
 
     // Llamar a la vista y pasar los datos de los cursos
     include '../views/classes.php';
-}
-
-class CourseController {
-    public function getCoursesByPage($conn, $page, $perPage, $searchTerm) {
-        $courses = CoursesModel::getCoursesByPage($conn, $page, $perPage, $searchTerm);
-        $totalCourses = CoursesModel::getTotalCourses($conn, $searchTerm);
-        return array($courses, $totalCourses);
-    }
 }
 ?>
