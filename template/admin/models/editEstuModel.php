@@ -27,5 +27,19 @@ class StudentModel {
 
         return $result;
     }
+
+    public static function resetPasswordModel($studentId, $conn) {
+        //logica para restablecer la contrasena del estuidante
+
+        $hash = password_hash("password123", PASSWORD_DEFAULT);
+        
+        $query = "UPDATE student SET password=? WHERE student_id=?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("si", $hash, $studentId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
 }
 ?>

@@ -97,7 +97,12 @@
                             </form>
                         </div> <br>
                         <button type="button" class="btn btn-primary" onclick="submitForm()">Actualizar Estudiante</button> <br>
-                        <button><a href="recordsController.php" class="btn btn-danger">Cancelar</a></button>
+                        <button><a href="recordsController.php" class="btn btn-danger">Volver</a></button> <br> <br>
+                        <form action="editEstuController.php" method="post" style="width: 100%;">
+                            <input type="hidden" name="action" value="pass_reset">
+                            <input type="hidden" name="studenId" value="<?php echo $studentInfo['student_id'];?>">
+                            <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+                        </form>
                 </div>
                 <!-- end main content section -->
             </div>

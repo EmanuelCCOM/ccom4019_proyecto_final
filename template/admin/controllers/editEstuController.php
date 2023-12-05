@@ -41,6 +41,14 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
                 include '../views/studentView.php';
                 break;
 
+            case "pass_reset":
+                $studentId = $_POST['studenId'];
+                $result = $editEstu->resetPasswordController($studentId, $conn);
+
+                $studentInfo = $editEstu->getStudentInfoController($studentId, $conn);
+                include '../views/studentView.php';
+                break;
+
             default:
                 header("Location: recordsController.php");
                 break;
@@ -60,6 +68,12 @@ class editEstuController {
     public function updateStudentController($studentId, $name, $lastName, $email, $axo, $conn) {
         // Lógica para obtener la información completa del estudiante desde el modelo
         $result = StudentModel::updateStudentModel($studentId, $name, $lastName, $email, $axo, $conn);
+        return $result;
+    }
+
+    public function resetPasswordController($studentId, $conn) {
+        // Lógica para obtener la información completa del estudiante desde el modelo
+        $result = StudentModel::resetPasswordModel($studentId, $conn);
         return $result;
     }
 }
