@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>PRE-MATRICULA </title>
+    <title>Cursos UPRA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,35 +70,16 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Lista de Estudiantes</h2>
+                        <?php
+                                $numero = $student_id;
+                                // Formatear el número en "XXX-XX-XXXX"
+                                $numero_formateado = substr($numero, 0, 3) . '-' . substr($numero, 3, 2) . '-' . substr($numero, 5);
+                            ?>
+                        <h2 class="text-xl"><?php echo "Informacion del estudiante: $numero_formateado"; ?></h2>
                             <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                                 <div class="flex gap-3">
                                     <div>
-                                        <button type="button" class="btn btn-primary" @click="editUser">
-                                            <svg
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                class="h-5 w-5 ltr:mr-2 rtl:ml-2"
-                                            >
-                                                <circle cx="10" cy="6" r="4" stroke="currentColor" stroke-width="1.5" />
-                                                <path
-                                                    opacity="0.5"
-                                                    d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                />
-                                                <path
-                                                    d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                    stroke-linecap="round"
-                                                />
-                                            </svg>
-                                            Añadir estudiante
-                                        </button>
+                                        
                                         <div class="fixed inset-0 z-[999] hidden overflow-y-auto bg-[black]/60" :class="addContactModal && '!block'">
                                             <div class="flex min-h-screen items-center justify-center px-4" @click.self="addContactModal = false">
                                                 <div
@@ -131,161 +113,55 @@
                                                         class="bg-[#fbfbfb] py-3 text-lg font-medium ltr:pl-5 ltr:pr-[50px] rtl:pr-5 rtl:pl-[50px] dark:bg-[#121c2c]"
                                                         x-text="params.id ? 'Editar estudiante' : 'Crear estudiante'"
                                                     ></h3>
-                                                    <div class="p-5">
-                                                        <form method="post" action="../controllers/recordsController.php">
-                                                            <div class="mb-5 grid grid-cols-1 md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                                                <input type="hidden" name="action" value="addStudent">
-                                                                <div>
-                                                                    <label for="nombre">Nombre</label>
-                                                                    <input name="nombre" id="nombre" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="apellidoP">Apellido</label>
-                                                                    <input name="apellidoP" id="apellidoP" type="text" placeholder="" class="form-input" required/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-5">
-                                                                <label for="email">Correo electronico</label>
-                                                                <input
-                                                                    id="email"
-                                                                    type="email"
-                                                                    placeholder="yeyo.soto2@upr.edu"
-                                                                    class="form-input"
-                                                                    name="email"
-                                                                />
-                                                            </div>
-
-                                                            <div class="mb-5">
-                                                                <label for="numero">Número de estudiante</label>
-                                                                <input
-                                                                    id="numero"
-                                                                    type="text"
-                                                                    placeholder="840-xx-xxxx"
-                                                                    class="form-input"
-                                                                    name="numero"
-                                                                />
-                                                            </div>
-
-                                                            <div class="mb-5">
-                                                                <label for="axo">Año de estudio</label>
-                                                                <input
-                                                                    id="axo"
-                                                                    type="number"
-                                                                    class="form-input"
-                                                                    name="axo"
-                                                                />
-                                                            </div>  
-                                                            
-                                                            <div class="mt-8 flex items-center justify-end">
-                                                                <button type="button" class="btn btn-outline-danger" @click="addContactModal = false">
-                                                                    Cancelar
-                                                                </button>
-                                                                <button
-                                                                    type="submit"
-                                                                    class="btn btn-primary ltr:ml-4 rtl:mr-4"
-                                                                    x-text="params.id ? 'Update' : 'Añadir'"
-                                                                ></button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="relative">
-                                    <form action="recordsController.php" method="get">
-                                        <input
-                                            type="text"
-                                            name="search"
-                                            placeholder="Buscar estudiante"
-                                            class="peer form-input py-2 ltr:pr-11 rtl:pl-11"
-                                        />
-                                        <div class="absolute top-1/2 -translate-y-1/2 peer-focus:text-primary ltr:right-[11px] rtl:left-[11px]">
-                                            <button type="submit">
-                                                <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor" stroke-width="1.5" opacity="0.5"></circle>
-                                                    <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="panel mt-5 overflow-hidden border-0 p-0">
                             <template x-if="displayType === 'list'">
                                 <div class="table-responsive">
-                                <table class="table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Numero de Estudiante</th>
-                                            <th>Nombre</th>
-                                            <th>Año de estudio</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($students as $student): ?>
-                                            <?php
-                                                $numero = $student['student_id'];
-                                                // Formatear el número en "XXX-XX-XXXX"
-                                                $numero_formateado = substr($numero, 0, 3) . '-' . substr($numero, 3, 2) . '-' . substr($numero, 5);
-                                            ?>
+                                    <table class="table-striped table-hover">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo $numero_formateado; ?></td>
-                                                <td><?php echo $student['name'] . ' ' . $student['lastName']; ?></td>
-                                                <td><?php echo $student['year_of_study']; ?></td>
+                                                <th>Nombre del curso</th>
+                                                <th>Codigo del curso</th>
+                                                <th>Sección</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($enrollmentDetails as $enrollment): ?>
+                                            <tr>
+                                                <td><?php echo $enrollment['course_title']; ?></td>
+                                                <td><?php echo $enrollment['course_id']; ?></td>
+                                                <td><?php echo $enrollment['section_id']; ?></td>
                                                 <td>
-                                                    <div class="flex items-center gap-4">
-                                                        <form action="editEstuController.php" method="post">
-                                                            <input type="hidden" name="action" value="viewStudent">
-                                                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
-                                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                                Editar
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="flex items-center gap-4">
-                                                        <form action="viewmatriculaController.php" method="post">
-                                                            <input type="hidden" name="action" value="viewStudent">
-                                                            <input type="hidden" name="student_id" value="<?php echo $student['student_id']; ?>">
-                                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                                Ver Matricula
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                    <?php
+                                                    // Display "Aprobación pendiente" for status 0 and "Aceptado" for status 1
+                                                    echo $enrollment['status'] == 0 ? 'Aprobación Pendiente...' : 'Aceptado';
+                                                    ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </template>
                         </div> <br>
                         <!-- paginacion -->
                         <?php
-                            $totalPages = ceil($totalStudents / $perPage); // Calcular el total de páginas
-                            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Obtén la página actual, predeterminada a 1 si no está establecida
                             $searchTerm = isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : ''; // Obtén el término de búsqueda si existe
-                            
-                            // Mostrar los botones de paginación
-                            echo '<ul class="inline-flex items-center space-x-1 rtl:space-x-reverse m-auto">';
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . max($currentPage - 1, 1) . $searchTerm . '\'">Prev</button></li>';
-                            
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . $i . $searchTerm . '\'">' . $i . '</button></li>';
-                            }
-                            
-                            echo '<li><button type="button" class="flex justify-center font-semibold px-3.5 py-2 rounded transition text-dark hover:text-primary border-2 border-[#e0e6ed] dark:border-[#191e3a] hover:border-primary dark:hover:border-primary dark:text-white-light" onclick="window.location.href=\'?page=' . min($currentPage + 1, $totalPages) . $searchTerm . '\'">Next</button></li>';
-                            echo '</ul>';
-                        ?>
+                        ?>    
                 <!-- end main content section -->
-            </div>
 
+            </div>
+            <button><a href="recordsController.php" class="btn btn-danger">Volver</a></button> <br> <br>
             <!-- start footer section -->
             <div class="p-6 pt-0 mt-auto text-center dark:text-white-dark ltr:sm:text-left rtl:sm:text-right">
                 © <span id="footer-year">2022</span>. UPRA All rights reserved.
@@ -492,95 +368,32 @@
             Alpine.data('contacts', () => ({
                     defaultParams: {
                         id: null,
-                        nombre: '',
-                        email: '',
-                        minor: '',
-                        numero: '',
-                        cohorte: '',
-                        birthday: '',
+                        nombre_curso: '',
+                        code_curso: '',
+                        section: '',
+                        credits: null,
+                        capacity: null,
                     },
                     displayType: 'list',
                     addContactModal: false,
                     params: {
                         id: null,
-                        nombre: '',
-                        email: '',
-                        minor: '',
-                        numero: '',
-                        cohorte: '',
-                        birthday: '',
+                        nombre_curso: '',
+                        code_curso: '',
+                        section: '',
+                        credits: null,
+                        capacity: null,
                     },
                     filterdContactsList: [],
                     searchUser: '',
-                    contactList: [
-                        {
-                            id: 1,
-                            path: 'profile-35.png',
-                            nombre: 'Joel Melvin Ramos Soto',
-                            email: 'joel.ramos4@upr.edu',
-                            minor: 'Web Design',
-                            consejeria: 'Realizada',
-                            numero: '840-22-5677',
-                            cohorte: 2022,
-                            priority: 'activo',
-                            birthday: '2013-09-12',
-                        },
-                        {
-                            id: 2,
-                            path: 'profile-35.png',
-                            nombre: 'Melissa Diaz Gonzalez',
-                            email: 'melissa.diaz10@upr.edu',
-                            minor: '',
-                            consejeria: 'No realizada',
-                            numero: '840-23-1290',
-                            cohorte: 2022,
-                            priority: 'activo',
-                            birthday: '2014-05-10',
-                        },
-                        {
-                            id: 3,
-                            path: 'profile-35.png',
-                            nombre: 'Melvin Raúl Lopez Reyes',
-                            email: 'melvin.lopez2@upr.edu',
-                            minor: 'Web Design',
-                            consejeria: 'Realizada',
-                            numero: '840-22-2345',
-                            cohorte: 2022,
-                            priority: 'activo',
-                            birthday: '2015-03-03',
-                        },
-                        {
-                            id: 4,
-                            path: 'profile-35.png',
-                            nombre: 'Jean Deida Quinones',
-                            email: 'jean.deida3@upr.edu',
-                            minor: '',
-                            consejeria: 'Realizada',
-                            numero: '840-23-1256',
-                            cohorte: 2022,
-                            priority: 'activo',
-                            birthday: '2004-09-12',
-                        },
-                        {
-                            id: 5,
-                            path: 'profile-35.png',
-                            nombre: 'Natalia Marta Zapato Monterrey',
-                            email: 'natalia.zapato@upr.du',
-                            minor: 'Web Design',
-                            consejeria: 'Realizada',
-                            numero: '840-23-1278',
-                            cohorte: 2022,
-                            priority: 'activo',
-                            birthday: '2006-04-12',
-                        },
-                    ],
+                    contactList: [],
 
                     init() {
                         this.searchContacts();
                     },
 
                     searchContacts() {
-                        this.filterdContactsList = this.contactList.filter((d) => d.nombre.toLowerCase().includes(this.searchUser.toLowerCase()));
+                        this.filterdContactsList = this.contactList.filter((d) => d.nombre_curso.toLowerCase().includes(this.searchUser.toLowerCase()));
                     },
 
                     editUser(user) {
@@ -593,15 +406,15 @@
                     },
 
                     saveUser() {
-                        if (!this.params.nombre) {
+                        if (!this.params.nombre_curso) {
                             this.showMessage('Name is required.', 'error');
                             return true;
                         }
-                        if (!this.params.email) {
-                            this.showMessage('Email is required.', 'error');
+                        if (!this.params.curso) {
+                            this.showMessage('Course is required.', 'error');
                             return true;
                         }
-                        if (!this.params.numero) {
+                        if (!this.params.code_curso) {
                             this.showMessage('Number is required.', 'error');
                             return true;
                         }
@@ -615,9 +428,9 @@
                             user.apellidoM = this.params.apellidoM,
                             user.email = this.params.email;
                             user.minor = this.params.minor;
-                            user.numero = this.params.numero;
+                            user.code_curso = this.params.code_curso;
                             user.cohorte = this.params.cohorte;
-                            user.consejeria = 'No realizada';
+                            user.credits = 'No realizada';
                             user.priority = 'activo';
                             user.birthday =  this.params.birthday;
                         } else {
@@ -635,9 +448,9 @@
                                 apellidoM: this.params.apellidoM,
                                 email: this.params.email,
                                 minor: this.params.minor,
-                                numero: this.params.numero,
+                                code_curso: this.params.code_curso,
                                 cohorte: this.params.cohorte,
-                                consejeria: 'No realizada',
+                                credits: 'No realizada',
                                 priority: 'activo',
                                 birthday: this.params.birthday,
                             };
@@ -695,4 +508,4 @@
     </script>
 </body>
 
-</html>
+</html> 
