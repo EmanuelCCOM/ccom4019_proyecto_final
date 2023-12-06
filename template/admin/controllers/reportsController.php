@@ -12,12 +12,30 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
     $reports = new reportsController();
 
     $totalStudents = $reports->getStudentTotal($conn);
+    $totalCourses = $reports->getCourseTotal($conn);
+    $denideStudent = $reports->getDenideStudents($conn);
+    $enrolledStudents = $reports->getEntrolledStudents($conn);
     include '../views/reportsView.php';
 }
 
 class reportsController {
     public function getStudentTotal($conn) {
         $results = ReportsModel::getTotalStudentModel($conn);
+        return $results;
+    }
+
+    public function getCourseTotal($conn) {
+        $results = ReportsModel::getTotalCoursesModel($conn);
+        return $results;
+    }
+
+    public function getDenideStudents($conn) {
+        $results = ReportsModel::getDenideStudentsModel($conn);
+        return $results;
+    }
+
+    public function getEntrolledStudents($conn) {
+        $results = ReportsModel::getEnrolledStudentsModel($conn);
         return $results;
     }
 }

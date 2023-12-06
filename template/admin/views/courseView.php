@@ -99,6 +99,37 @@
                         </div> <br>
                         <button type="button" class="btn btn-primary" onclick="submitForm()">Actualizar Curso</button> <br>
                         <button><a href="classesController.php" class="btn btn-danger">Cancelar</a></button>
+                        <!-- basic table -->
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Codigo de Seccion</th>
+                                            <th>Cupos</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($courseSections as $section) : ?>
+                                            <form method="post" action="courseController.php">
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="new_section_id" value="<?php echo $section['section_id']; ?>">
+                                                    <input type="hidden" name="old_section_id" value="<?php echo $section['section_id']; ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="capacity" value="<?php echo $section['capacity']; ?>">
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" name="course_id" value="<?php echo $course_id; ?>" >
+                                                    <button type="submit" name="action" value="updateSection">Actualizar</button>
+                                                </td>
+                                            </tr>
+                                            </form>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                 </div>
                 <!-- end main content section -->
             </div>

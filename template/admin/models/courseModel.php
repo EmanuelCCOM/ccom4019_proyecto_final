@@ -30,6 +30,62 @@ class CourseModel {
         } catch (mysqli_sql_exception $e) {
             echo "Error al actualizar el curso: " . $e->getMessage();
         }
-    }            
+    } 
+    
+    public static function getCourseSectionsModel($courseId, $conn) {
+        // Preparar la consulta SQL
+        $query = "SELECT * FROM section WHERE course_id = ?";
+    
+        // Preparar la declaración
+        $stmt = $conn->prepare($query);
+    
+        // Bind de parámetros
+        $stmt->bind_param('s', $courseId);
+    
+        // Ejecutar la consulta
+        $stmt->execute();
+    
+        // Obtener los resultados
+        $result = $stmt->get_result();
+    
+        // Obtener los resultados como un array asociativo
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Liberar los recursos
+        $stmt->close();
+    
+        // Devolver el resultado
+        return $rows;
+    }
+    
+    public static function updateSectionModel($courseId, $new_sectionId, $capacity, $old_section, $conn) {
+        try {
+            // Preparar la consulta SQL con marcadores de posición
+            $sql = "UPDATE section SET section_id = ?, capacity = ? WHERE course_id = ? AND section_id = ?";
+            
+            // Preparar la declaración
+            $stmt = $conn->prepare($sql);
+    
+            // Vincular los parámetros
+            $stmt->bind_param("ssss", $new_sectionId, $capacity, $courseId, $old_section);
+    
+            // Ejecutar la consulta
+            $stmt->execute();
+            
+            // Verificar si la consulta fue exitosa
+            if ($stmt->affected_rows > 0) {
+                $stmt->close();
+                return true;
+            } else {
+                $stmt->close();
+                return false;
+            }
+    
+        } catch (mysqli_sql_exception $e) {
+            echo "Error al actualizar la sección: " . $e->getMessage();
+        }
+    }
+    
+    
 }
 ?>

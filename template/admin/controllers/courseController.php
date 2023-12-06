@@ -21,6 +21,7 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
 
                 // Obtener la información completa del estudiante desde el modelo
                 $courseInfo = $courseObj->getCourseInfoController($courseId, $conn);
+                $courseSections = $courseObj->getCourseSectionsController($courseId, $conn);
 
                 // Cargar la vista para mostrar la información completa del estudiante
                 include '../views/courseView.php';
@@ -34,6 +35,23 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
 
                 $result = $courseObj->updateCourseController($courseId, $title, $credits, $conn);
                 $courseInfo = $courseObj->getCourseInfoController($courseId, $conn);
+                $courseSections = $courseObj->getCourseSectionsController($courseId, $conn);
+                include '../views/courseView.php';
+                break;
+
+            case "updateSection":
+                // Lógica para actualizar la información del curso
+                //se utilizo para DEBUGG
+                $archivoRegistro = __DIR__ . '/archivo_de_registro.txt';
+                error_log("lLEGUE al update de la secciones \n", 3, $archivoRegistro);
+                $new_sectionId = $_POST['new_section_id'];
+                $capacity = $_POST['capacity'];
+                $courseId = $_POST['course_id'];
+                $old_section =$_POST['old_section_id'];
+
+                $result = $courseObj->updateSectionController($courseId, $new_sectionId, $capacity, $old_section, $conn);
+                $courseInfo = $courseObj->getCourseInfoController($courseId, $conn);
+                $courseSections = $courseObj->getCourseSectionsController($courseId, $conn);
                 include '../views/courseView.php';
                 break;
 
@@ -53,9 +71,21 @@ class courseController {
         return $course;
     }
 
+    public function getCourseSectionsController($courseId, $conn) {
+        // Lógica para obtener la información completa del estudiante desde el modelo
+        $course = CourseModel::getCourseSectionsModel($courseId, $conn);
+        return $course;
+    }
+
     public function updateCourseController($courseId, $title, $credits, $conn) {
         // Lógica para obtener la información completa del estudiante desde el modelo
         $result = CourseModel::updateCourseModel($courseId, $title, $credits, $conn);
+        return $result;
+    }
+
+    public function updateSectionController($courseId, $new_sectionId, $capacity, $old_section, $conn) {
+        // Lógica para obtener la información completa del estudiante desde el modelo
+        $result = CourseModel::updateSectionModel($courseId, $new_sectionId, $capacity, $old_section, $conn);
         return $result;
     }
 }
