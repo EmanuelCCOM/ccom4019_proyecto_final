@@ -41,15 +41,26 @@ if (!(isset($_SESSION['role']) && $_SESSION['role'] === 'admin')) {
 
             case "updateSection":
                 // Lógica para actualizar la información del curso
-                //se utilizo para DEBUGG
-                $archivoRegistro = __DIR__ . '/archivo_de_registro.txt';
-                error_log("lLEGUE al update de la secciones \n", 3, $archivoRegistro);
+
                 $new_sectionId = $_POST['new_section_id'];
                 $capacity = $_POST['capacity'];
                 $courseId = $_POST['course_id'];
                 $old_section =$_POST['old_section_id'];
 
                 $result = $courseObj->updateSectionController($courseId, $new_sectionId, $capacity, $old_section, $conn);
+                $courseInfo = $courseObj->getCourseInfoController($courseId, $conn);
+                $courseSections = $courseObj->getCourseSectionsController($courseId, $conn);
+                include '../views/courseView.php';
+                break;
+            case "InsertSection":
+                // Lógica para actualizar la información del curso
+                //se utilizo para DEBUGG
+
+                $sectionId = $_POST['section_id'];
+                $capacity = $_POST['capacity'];
+                $courseId = $_POST['course_id'];
+
+                $result = $courseObj->insertSectionController($courseId, $sectionId, $capacity, $conn);
                 $courseInfo = $courseObj->getCourseInfoController($courseId, $conn);
                 $courseSections = $courseObj->getCourseSectionsController($courseId, $conn);
                 include '../views/courseView.php';
@@ -86,6 +97,12 @@ class courseController {
     public function updateSectionController($courseId, $new_sectionId, $capacity, $old_section, $conn) {
         // Lógica para obtener la información completa del estudiante desde el modelo
         $result = CourseModel::updateSectionModel($courseId, $new_sectionId, $capacity, $old_section, $conn);
+        return $result;
+    }
+
+    public function insertSectionController($courseId, $sectionId, $capacity, $conn) {
+        // Lógica para obtener la información completa del estudiante desde el modelo
+        $result = CourseModel::insertSectionModel($courseId, $sectionId, $capacity, $conn);
         return $result;
     }
 }

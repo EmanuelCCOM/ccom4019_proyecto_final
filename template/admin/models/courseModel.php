@@ -86,6 +86,32 @@ class CourseModel {
         }
     }
     
+    public static function insertSectionModel($courseId, $sectionId, $capacity, $conn) {
+        try {
+            // Preparar la consulta SQL con marcadores de posición
+            $sql = "INSERT INTO section(course_id, section_id, capacity) VALUES (?, ?, ?)";
+            
+            // Preparar la declaración
+            $stmt = $conn->prepare($sql);
     
+            // Vincular los parámetros
+            $stmt->bind_param("sss", $courseId, $sectionId, $capacity);
+    
+            // Ejecutar la consulta
+            $stmt->execute();
+            
+            // Verificar si la consulta fue exitosa
+            if ($stmt->affected_rows > 0) {
+                $stmt->close();
+                return true;
+            } else {
+                $stmt->close();
+                return false;
+            }
+    
+        } catch (mysqli_sql_exception $e) {
+            echo "Error al actualizar la sección: " . $e->getMessage();
+        }
+    }
 }
 ?>

@@ -127,6 +127,20 @@
                                             </tr>
                                             </form>
                                         <?php endforeach; ?>
+                                        <form method="post" action="courseController.php">
+                                        <tr>
+                                            <td>
+                                                <input type="text" name="section_id" value="">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="capacity" value="">
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="course_id" value="<?php echo $course_id; ?>" >
+                                                <button type="submit" name="action" value="InsertSection">Añadir</button>
+                                            </td>
+                                        </tr>
+                                        </form>
                                     </tbody>
                                 </table>
                             </div>
