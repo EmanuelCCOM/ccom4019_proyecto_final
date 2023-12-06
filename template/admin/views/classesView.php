@@ -70,7 +70,8 @@
                 <!-- start main content section -->
                 <div x-data="contacts">
                         <div class="flex flex-wrap items-center justify-between gap-4">
-                            <h2 class="text-xl">Lista de Cursoss</h2>
+                            <h2 class="text-xl">Lista de Cursos</h2>
+                            <button><a href="../controllers/iniciarmatriculaController.php" class="btn btn-danger">Iniciar Matricula</a></button>
                             <div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                                 <div class="flex gap-3">
                                     <div>
@@ -209,6 +210,7 @@
                                             <th>Nombre</th>
                                             <th>Creditos</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -235,6 +237,17 @@
                                                             <input type="hidden" name="course_id" value="<?php echo $class['course_id']; ?>">
                                                             <button type="submit" class="btn btn-sm btn-outline-primary">
                                                                 Ver detalles
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="flex items-center gap-4">
+                                                        <form action="viewstudentsController.php" method="post">
+                                                            <input type="hidden" name="action" value="viewCourse">
+                                                            <input type="hidden" name="course_id" value="<?php echo $class['course_id']; ?>">
+                                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                                Ver Estudiantes
                                                             </button>
                                                         </form>
                                                     </div>

@@ -144,7 +144,7 @@
                                                 <td>
                                                     <?php
                                                     // Display "Aprobación pendiente" for status 0 and "Aceptado" for status 1
-                                                    echo $enrollment['status'] == 0 ? 'Aprobación Pendiente...' : 'Aceptado';
+                                                    echo $enrollment['status'] == 0 ? 'Aprobación Pendiente...' : ($enrollment['status'] == 1 ? 'Matriculado' : 'Cancelado por cupo');
                                                     ?>
                                                 </td>
                                             </tr>

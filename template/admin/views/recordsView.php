@@ -224,6 +224,7 @@
                                             <th>Nombre</th>
                                             <th>Año de estudio</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
